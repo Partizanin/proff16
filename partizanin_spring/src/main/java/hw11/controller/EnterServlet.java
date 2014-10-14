@@ -1,7 +1,9 @@
 package hw11.controller;
 
 import hw11.model.domain.Administrator;
+import hw11.model.domain.Client;
 import hw11.service.admin.AdminService;
+import hw11.service.client.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -31,8 +33,10 @@ public class EnterServlet extends HttpServlet {
     private WebApplicationContext context;
 
     private AdminService adminService;
+    private ClientService clientService;
 
     private List<Administrator> adminList = new ArrayList<>(10);
+    private List<Client> clientList = new ArrayList<>(10);
 
     @Override
     public void init() throws ServletException {
@@ -48,6 +52,7 @@ public class EnterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
         if (request.getParameter("client") != null) {
 
@@ -70,8 +75,10 @@ public class EnterServlet extends HttpServlet {
             request.getRequestDispatcher("/hw11/jsp/admins/functions/adminsList.jsp").forward(request, response);
 
         } else if (request.getParameter("button").equals("Show Clients List")) {
+            clientService = (ClientService) context.getBean("clientServiceImpl");
 
-            request.setAttribute("", "");
+            clientList = clientService.findAll();
+            request.setAttribute("clientList", clientList);
 
             request.getRequestDispatcher("/hw11/jsp/admins/functions/clientsList.jsp").forward(request, response);
 

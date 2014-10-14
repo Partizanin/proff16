@@ -1,7 +1,10 @@
 package hw11.controller.admin;
 
 import hw11.model.domain.Client;
+import hw11.service.client.ClientService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with Intellij IDEA.
@@ -24,8 +28,8 @@ import java.util.List;
 @WebServlet("/ClientTable")
 public class ClientTableServlet extends HttpServlet {
 
-  /*  private WebApplicationContext context;
-    private ClientService clientService;*/
+    private WebApplicationContext context;
+    private ClientService clientService;
 
     private List<Client> clients = new ArrayList<Client>(10);
 
@@ -33,8 +37,8 @@ public class ClientTableServlet extends HttpServlet {
     @Override
     public void init()
             throws ServletException {
-/*        Locale.setDefault(Locale.ENGLISH);
-        context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());*/
+        Locale.setDefault(Locale.ENGLISH);
+        context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
     }
 
@@ -48,8 +52,8 @@ public class ClientTableServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-       /*clientService = (ClientService) context.getBean("clientServiceImpl");
-        clients = clientService.findAll();*/
+        clientService = (ClientService) context.getBean("clientServiceImpl");
+        clients = clientService.findAll();
 
 
         String action = request.getParameter("action");
@@ -112,9 +116,10 @@ public class ClientTableServlet extends HttpServlet {
         }
 
         if (clients.size() < 1 && !action.equals("Add")) {
-            /*request.setAttribute("message","The list does not have administrator, add one");
-            request.getRequestDispatcher("/hw11/jsp/admins/functions/clientsList.jsp").forward(request, response);*/
+            request.setAttribute("message", "The list does not have administrator, add one");
+            request.getRequestDispatcher("/hw11/jsp/admins/functions/clientsList.jsp").forward(request, response);
 
+/*
             Client client1 = new Client("Vasa", "Petrov", "+380718032543", "Krasnoyarskaya/37", 20.00, "12.05.2014");
             client1.setId(1l);
             clients.add(client1);
@@ -131,6 +136,7 @@ public class ClientTableServlet extends HttpServlet {
             client1 = new Client("Ivan", "Mishutin", "+380438769814", "Moskovskaya/92", 56.44, "18.02.2014");
             client1.setId(4l);
             clients.add(client1);
+*/
         }
 
 
@@ -155,7 +161,7 @@ public class ClientTableServlet extends HttpServlet {
                 break;
 
         }
-        /* clients = clientService.findAll();*/
+        clients = clientService.findAll();
         request.setAttribute("clientList", clients);
         request.setAttribute("message", message);
         request.setAttribute("client", client);
@@ -170,11 +176,24 @@ public class ClientTableServlet extends HttpServlet {
             return "Pleas input id what you want delete!";
 
         }
-        for (int i = 0; i < clients.size(); i++) {
+        boolean idContain = false;
 
-            if (clients.get(i).getId().equals(client.getId())) {
+        for (Client client2 : clients) {
+            if (client.getId().equals(client2.getId())) {
+                idContain = true;
+                break;
+            }
+        }
 
-                clients.remove(i);
+        if (!idContain) {
+            return "Client with this id don't exist!";
+        }
+        for (Client client1 : clients) {
+
+            if (client1.getId().equals(client.getId())) {
+
+                /*clients.remove(i);*/
+                clientService.delete(client1);
                 break;
             }
         }
@@ -201,7 +220,8 @@ public class ClientTableServlet extends HttpServlet {
 
             if (clients.get(i).getId().equals(client1.getId())) {
 
-                clients.set(i, client1);
+                /*clients.set(i, client1);*/
+                clientService.update(client1);
                 break;
             }
         }
@@ -308,7 +328,7 @@ public class ClientTableServlet extends HttpServlet {
                 } else if (client.getName().equals(client1.getName())) {
                     return "Client with this name already exists,pleas input another name";
                 } else if (client.getSurname().equals(client1.getSurname())) {
-                    return "Cient with this surname already exists,pleas input another surname";
+                    return "Client with this surname already exists,pleas input another surname";
                 } else if (client.getPhoneNumber().equals(client1.getPhoneNumber())) {
                     return "Client with this phone number already exists,pleas input another phone number";
                 } else if (client.getAddress().equals(client1.getAddress())) {
@@ -316,7 +336,8 @@ public class ClientTableServlet extends HttpServlet {
                 }
             }
         }
-        clients.add(client);
+        /*clients.add(client);*/
+        clientService.create(client);
         return "";
 
     }

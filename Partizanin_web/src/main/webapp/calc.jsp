@@ -1,0 +1,112 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Partizanin
+  Date: 16.09.2014
+  Time: 14:43
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>heavyTable.js : jQuery plugin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <script src="JavaScripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="JavaScripts/search.js" type="text/javascript"></script>
+    <script src="JavaScripts/jquery.heavyTable.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+</head>
+<body>
+<div class='main'>
+    <section class="content">
+        <h1>heavyTable.js</h1>
+
+        <p>
+            Ce plugin jQuery vous permet d'éditer n'importe quel <<code>table</code>> grâce à la souris ou au clavier.
+        </p>
+    </section>
+    <table class="heavyTable">
+        <thead>
+        <tr>
+            <th>Body</th>
+            <th>Section</th>
+            <th>Article</th>
+            <th>Table</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2</td>
+            <td>13</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>2</td>
+            <td>6</td>
+            <td>654</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <section class="content">
+        <p><a href="https://github.com/victordarras/HeavyTable.js">heavyTable.js sur Github</a></p>
+
+        <div class="download">
+            <a class="button" href="javascripts/jquery.heavyTable.js" download="jquery.heavyTable.js">Télécharger
+                heavyTable.js</a>
+        </div>
+        <br>
+        <a href="https://twitter.com/share" class="twitter-share-button"
+           data-text="Modifier un &lt;table&gt; comme un tableur avec jquery.heavyTable.js" data-via="victordarras"
+           data-lang="fr" data-size="large" data-hashtags="jqueryplugin">Tweeter</a>
+        <script>!function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'twitter-wjs');</script>
+        <h2>Installation</h2>
+
+      <pre>
+        $('.heavyTable').heavyTable({
+        xPosition: 2,
+        yPosition: 2
+      });
+    </pre>
+    </section>
+</div>
+
+<script src="javascripts/script.js" type="text/javascript">
+</script>
+
+</body>
+</html>

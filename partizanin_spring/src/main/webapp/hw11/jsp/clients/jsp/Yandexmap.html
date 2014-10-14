@@ -17,7 +17,7 @@
     <script type="text/javascript">
         function init() {
             var myMap = new ymaps.Map('map', {
-                        center: [60.906882, 30.067233],
+                        center: [49.806671, 30.103926],
                         zoom: 9,
                         type: 'yandex#map',
                         behaviors: ['scrollZoom', 'drag'],
@@ -44,6 +44,7 @@
                             position: { left: 10, top: 44 }
                         }
                     }),
+
                     calculator = new DeliveryCalculator(myMap, myMap.getCenter());
 
             myMap.controls.add(searchStartPoint);
@@ -183,6 +184,7 @@
             }, this);
 
         }
+
         ptp.calculate = function (len) {
             // Константы.
             var DELIVERY_TARIF = 20,
@@ -197,6 +199,11 @@
     </script>
 </head>
 <body>
-<div id="map"></div>
+<form action="/MapServlet" method="post">
+
+    <div id="map"></div>
+    <input type="submit" value="Ok"/>
+
+</form>
 </body>
 </html>

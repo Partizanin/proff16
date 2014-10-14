@@ -89,6 +89,7 @@
     <orderEntry type="library" name="Maven: org.apache.activemq:activemq-all:5.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xbean:xbean-spring:3.7" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.1" level="project" />
+    <orderEntry type="library" name="json-lib-2.4-jdk151" level="project" />
   </component>
 </module>
 

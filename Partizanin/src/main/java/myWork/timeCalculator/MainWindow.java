@@ -26,21 +26,140 @@ public class MainWindow extends JFrame {
     private final JTextField textField2F = new JTextField();
 
 
-    private final JLabel lablePlus = new JLabel("");
-    private final JLabel lableMinus = new JLabel("_");
+    private final JLabel labelPlus = new JLabel("");
+    private final JLabel labelMinus = new JLabel("_");
     private final JLabel labelEquals = new JLabel("");
 
-    private final JLabel lablePlusF = new JLabel("+");
-    private final JLabel lableMinusF = new JLabel("");
+    private final JLabel labelPlusF = new JLabel("+");
+    private final JLabel labelMinusF = new JLabel("");
     private final JLabel labelEqualsF = new JLabel("");
     private final JTextArea textArea = new JTextArea("");
-
     private final JButton buttonCount = new JButton("=");
-
     private final JButton buttonCountF = new JButton("=");
-    private final JLabel labeTimeCount = new JLabel("Хвилини");
-    private JMenuItem menuMinus;
+    private final JLabel labelTimeCount = new JLabel("Хвилини");
+    ImageIcon ico = new ImageIcon("D:\\Illia\\Java\\Projects\\proff16\\Partizanin\\src\\main\\java\\myWork\\timeCalculator\\left_48.png");
+    private final JButton buttonReturnValue = new JButton(ico);
+    private final JButton buttonReturnValue2 = new JButton(ico);
+    ImageIcon icoWarn = new ImageIcon("D:\\Illia\\Java\\Projects\\proff16\\Partizanin\\src\\main\\java\\myWork\\timeCalculator\\warning_48.png");
+    private final JLabel labelWarn = new JLabel(icoWarn);
+    ImageIcon icoUp = new ImageIcon("D:\\Illia\\Java\\Projects\\proff16\\Partizanin\\src\\main\\java\\myWork\\timeCalculator\\up_48.png");
+    private final JButton textUp = new JButton(icoUp);
+    ImageIcon icoDown = new ImageIcon("D:\\Illia\\Java\\Projects\\proff16\\Partizanin\\src\\main\\java\\myWork\\timeCalculator\\down_48.png");
+    private final JButton textDown = new JButton(icoDown);
+    PlainDocument plainDocument1 = new PlainDocument() {
 
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String chars = "1234567890";
+            textArea.setVisible(false);
+            labelWarn.setVisible(false);
+            if (offs == 9) {
+                textField1.setText("");
+                super.insertString(0, str, a);
+            }
+            if (getLength() > 7 || !chars.contains(str)) {
+                return;
+            }
+
+            if (getLength() > 1 && getLength() < 3
+                    || getLength() > 4 && getLength() < 6) {
+
+                str = ":" + str;
+                super.insertString(offs, str, a);
+            } else {
+                super.insertString(offs, str, a);
+            }
+        }
+
+
+    };
+    PlainDocument plainDocument2 = new PlainDocument() {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String chars = "1234567890";
+            if (getLength() > 7 || !chars.contains(str)) {
+                return;
+            }
+            textArea.setVisible(false);
+            labelWarn.setVisible(false);
+            if (getLength() > 1 && getLength() < 3
+                    || getLength() > 4 && getLength() < 6) {
+
+                str = ":" + str;
+                super.insertString(offs, str, a);
+            } else {
+                super.insertString(offs, str, a);
+            }
+        }
+
+
+    };
+    PlainDocument plainDocument4 = new PlainDocument() {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String chars = "1234567890+-";
+            textArea.setVisible(false);
+            labelWarn.setVisible(false);
+
+
+            if (!chars.contains(str)) {
+                //noinspection UnnecessaryReturnStatement
+                return;
+            } else {
+
+                if (getLength() == 0 && str.equals("+") || getLength() == 0 && str.equals("-")) {
+                    return;
+                }
+
+                if (!textField2F.getText().equals("")) {
+
+
+                    String text = textField2F.getText();
+
+                    if (text.charAt(text.length() - 1) == '-' && str.equals("-") ||
+                            text.charAt(text.length() - 1) == '+' && str.equals("+") ||
+                            text.charAt(text.length() - 1) == '-' && str.equals("+") ||
+                            text.charAt(text.length() - 1) == '+' && str.equals("-")) {
+                        return;
+                    }
+                }
+
+                super.insertString(offs, str, a);
+            }
+        }
+
+
+    };
+    PlainDocument plainDocument3 = new PlainDocument() {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String chars = "1234567890";
+            textArea.setVisible(false);
+            labelWarn.setVisible(false);
+
+            if (offs == 9) {
+                textField1F.setText("");
+                super.insertString(0, str, a);
+
+            }
+            if (getLength() > 7 || !chars.contains(str)) {
+                return;
+
+            }
+
+            if (getLength() > 1 && getLength() < 3
+                    || getLength() > 4 && getLength() < 6) {
+
+                str = ":" + str;
+                super.insertString(offs, str, a);
+            } else {
+                super.insertString(offs, str, a);
+            }
+        }
+
+
+    };
+    private JMenuItem menuMinus;
 
     private MainWindow() {
 
@@ -60,17 +179,17 @@ public class MainWindow extends JFrame {
         textField1F.setBounds(20, 90, 91, 40);
         textField1F.setFont(new Font("", Font.PLAIN, 22));
 
-        lableMinus.setBounds(130, 7, 20, 42);
+        labelMinus.setBounds(130, 7, 20, 42);
 
-        lablePlus.setBounds(130, 22, 20, 42);
+        labelPlus.setBounds(130, 22, 20, 42);
 
-        lableMinusF.setBounds(130, 77, 20, 42);
+        labelMinusF.setBounds(130, 77, 20, 42);
 
-        lablePlusF.setBounds(130, 92, 20, 42);
+        labelPlusF.setBounds(130, 92, 20, 42);
 
-        labeTimeCount.setBounds(160, 92, 70, 42);
-        labeTimeCount.setForeground(Color.RED);
-        labeTimeCount.setFont(new Font("Serif", Font.BOLD, 15));
+        labelTimeCount.setBounds(160, 92, 70, 42);
+        labelTimeCount.setForeground(Color.RED);
+        labelTimeCount.setFont(new Font("Serif", Font.BOLD, 15));
 
         textField2.setBounds(170, 25, 91, 40);
 
@@ -87,6 +206,22 @@ public class MainWindow extends JFrame {
         labelEqualsF.setFont(new Font("", Font.BOLD, 22));
         labelEqualsF.setForeground(Color.DARK_GRAY);
 
+        buttonReturnValue.setBounds(450, 25, 48, 48);
+        buttonReturnValue.setFocusPainted(false);
+        buttonReturnValue.setContentAreaFilled(false);
+
+        textUp.setBounds(558, 95, 48, 48);
+        textUp.setFocusPainted(false);
+        textUp.setContentAreaFilled(false);
+
+        textDown.setBounds(498, 25, 48, 48);
+        textDown.setFocusPainted(false);
+        textDown.setContentAreaFilled(false);
+
+        buttonReturnValue2.setBounds(510, 95, 48, 48);
+        buttonReturnValue2.setFocusPainted(false);
+        buttonReturnValue2.setContentAreaFilled(false);
+
         buttonCount.setBounds(280, 25, 60, 40);
         buttonCount.setFont(new Font("Serif", Font.BOLD, 30));
 
@@ -94,19 +229,19 @@ public class MainWindow extends JFrame {
         buttonCountF.setFont(new Font("Serif", Font.BOLD, 30));
 
 
-        lableMinus.setForeground(Color.RED);
-        lableMinus.setFont(new Font("Serif", Font.BOLD, 30));
+        labelMinus.setForeground(Color.RED);
+        labelMinus.setFont(new Font("Serif", Font.BOLD, 30));
 
-        lableMinusF.setForeground(Color.RED);
-        lableMinusF.setFont(new Font("Serif", Font.BOLD, 30));
-
-
-        lablePlus.setForeground(Color.RED);
-        lablePlus.setFont(new Font("Serif", Font.BOLD, 30));
+        labelMinusF.setForeground(Color.RED);
+        labelMinusF.setFont(new Font("Serif", Font.BOLD, 30));
 
 
-        lablePlusF.setForeground(Color.RED);
-        lablePlusF.setFont(new Font("Serif", Font.BOLD, 30));
+        labelPlus.setForeground(Color.RED);
+        labelPlus.setFont(new Font("Serif", Font.BOLD, 30));
+
+
+        labelPlusF.setForeground(Color.RED);
+        labelPlusF.setFont(new Font("Serif", Font.BOLD, 30));
 
         textArea.setFont(new Font("Serif", Font.BOLD, 30));
 
@@ -115,29 +250,36 @@ public class MainWindow extends JFrame {
 
         textArea.setBackground(p1.getBackground());
 
-        textArea.setBounds(20, 150, 450, 100);
+        textArea.setBounds(91, 150, 450, 100);
+        labelWarn.setBounds(20, 150, 48, 48);
 
         textArea.setEditable(false);
         textArea.setVisible(false);
+        labelWarn.setVisible(false);
 
         p1.add(textArea);
-        p1.add(labeTimeCount);
+        p1.add(labelTimeCount);
         p1.add(textField1);
         p1.add(textField2);
         p1.add(buttonCount);
         p1.add(buttonCountF);
-        p1.add(lablePlus);
-        p1.add(lableMinus);
+        p1.add(labelPlus);
+        p1.add(labelMinus);
         p1.add(labelEquals);
         p1.add(labelEqualsF);
-        p1.add(lableMinusF);
-        p1.add(lablePlusF);
+        p1.add(labelMinusF);
+        p1.add(labelPlusF);
         p1.add(textField1F);
         p1.add(textField2F);
+        p1.add(buttonReturnValue);
+        p1.add(buttonReturnValue2);
+        p1.add(textUp);
+        p1.add(textDown);
+        p1.add(labelWarn);
 
 
         add(p1);
-        setSize(505, 265);
+        setSize(605, 265);
         setLocation(300, 250);
         setResizable(false);
         setVisible(true);
@@ -149,116 +291,23 @@ public class MainWindow extends JFrame {
         ButtonListener2 listener2 = new ButtonListener2(this);
         buttonCount.addActionListener(listener);
         buttonCountF.addActionListener(listener2);
+        buttonReturnValue.addActionListener(listener);
+        buttonReturnValue2.addActionListener(listener2);
+        textUp.addActionListener(listener2);
+        textDown.addActionListener(listener);
         setTitle("Frame2");
 
 
-        PlainDocument plainDocument1 = new PlainDocument() {
-            @Override
-            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-                String chars = "1234567890";
-                textArea.setVisible(false);
-                if (getLength() > 7 || !chars.contains(str)) {
-                    return;
-                }
-
-                if (getLength() > 1 && getLength() < 3
-                        || getLength() > 4 && getLength() < 6) {
-
-                    str = ":" + str;
-                    super.insertString(offs, str, a);
-                } else {
-                    super.insertString(offs, str, a);
-                }
-            }
-
-
-        };
         textField1.setDocument(plainDocument1);
-        PlainDocument plainDocument2 = new PlainDocument() {
-            @Override
-            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-                String chars = "1234567890";
-                if (getLength() > 7 || !chars.contains(str)) {
-                    return;
-                }
-                textArea.setVisible(false);
-                if (getLength() > 1 && getLength() < 3
-                        || getLength() > 4 && getLength() < 6) {
 
-                    str = ":" + str;
-                    super.insertString(offs, str, a);
-                } else {
-                    super.insertString(offs, str, a);
-                }
-            }
-
-
-        };
         textField2.setDocument(plainDocument2);
-        PlainDocument plainDocument3 = new PlainDocument() {
-            @Override
-            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-                String chars = "1234567890";
-                textArea.setVisible(false);
-                if (getLength() > 7 || !chars.contains(str)) {
-                    return;
-
-                }
-
-                if (getLength() > 1 && getLength() < 3
-                        || getLength() > 4 && getLength() < 6) {
-
-                    str = ":" + str;
-                    super.insertString(offs, str, a);
-                } else {
-                    super.insertString(offs, str, a);
-                }
-            }
-
-
-        };
         textField1F.setDocument(plainDocument3);
-        PlainDocument plainDocument4 = new PlainDocument() {
-            @Override
-            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-                String chars = "1234567890+-";
-                textArea.setVisible(false);
-
-
-                if (!chars.contains(str)) {
-                    //noinspection UnnecessaryReturnStatement
-                    return;
-                } else {
-
-                    if (getLength() == 0 && str.equals("+") || getLength() == 0 && str.equals("-")) {
-                        return;
-                    }
-
-                    if (!textField2F.getText().equals("")) {
-
-
-                        String text = textField2F.getText();
-
-                        if (text.charAt(text.length() - 1) == '-' && str.equals("-") ||
-                                text.charAt(text.length() - 1) == '+' && str.equals("+") ||
-                                text.charAt(text.length() - 1) == '-' && str.equals("+") ||
-                                text.charAt(text.length() - 1) == '+' && str.equals("-")) {
-                            return;
-                        }
-                    }
-
-                    super.insertString(offs, str, a);
-                }
-            }
-
-
-        };
         textField2F.setDocument(plainDocument4);
 
         MenuListener menuListener = new MenuListener(this);
         JPopupMenu p = new JPopupMenu();
-        /*lableMinus.setComponentPopupMenu(p);*/
-        lablePlus.setComponentPopupMenu(p);
+        /*labelMinus.setComponentPopupMenu(p);*/
+        labelPlus.setComponentPopupMenu(p);
 
 
         menuMinus = new JMenuItem("_");
@@ -271,8 +320,8 @@ public class MainWindow extends JFrame {
 
         MenuListener2 menuListener2 = new MenuListener2(this);
         JPopupMenu p2 = new JPopupMenu();
-        lableMinusF.setComponentPopupMenu(p2);
-        lablePlusF.setComponentPopupMenu(p2);
+        labelMinusF.setComponentPopupMenu(p2);
+        labelPlusF.setComponentPopupMenu(p2);
 
 
         menuMinus = new JMenuItem("_");
@@ -286,7 +335,7 @@ public class MainWindow extends JFrame {
 
         MenuListener3 menuListener3 = new MenuListener3(this);
         JPopupMenu p3 = new JPopupMenu();
-        labeTimeCount.setComponentPopupMenu(p3);
+        labelTimeCount.setComponentPopupMenu(p3);
 
         JMenuItem timeMenu = new JMenuItem("Години");
         timeMenu.addActionListener(menuListener3);
@@ -299,6 +348,7 @@ public class MainWindow extends JFrame {
         timeMenu = new JMenuItem("Секунди");
         timeMenu.addActionListener(menuListener3);
         p3.add(timeMenu);
+
 
     }
 
@@ -521,13 +571,13 @@ public class MainWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if (lableMinus.getText().equals("_")) {
-                lableMinus.setText("");
-                lablePlus.setText(((JMenuItem) e.getSource()).getText());
+            if (labelMinus.getText().equals("_")) {
+                labelMinus.setText("");
+                labelPlus.setText(((JMenuItem) e.getSource()).getText());
             } else {
 
-                lablePlus.setText("");
-                lableMinus.setText(((JMenuItem) e.getSource()).getText());
+                labelPlus.setText("");
+                labelMinus.setText(((JMenuItem) e.getSource()).getText());
             }
         }
     }
@@ -544,11 +594,11 @@ public class MainWindow extends JFrame {
             JMenuItem clickedMenu = (JMenuItem) e.getSource();
 
             if (clickedMenu.equals(parent.menuMinus)) {
-                lablePlusF.setText("");
-                lableMinusF.setText(((JMenuItem) e.getSource()).getText());
+                labelPlusF.setText("");
+                labelMinusF.setText(((JMenuItem) e.getSource()).getText());
             } else {
-                lableMinusF.setText("");
-                lablePlusF.setText(((JMenuItem) e.getSource()).getText());
+                labelMinusF.setText("");
+                labelPlusF.setText(((JMenuItem) e.getSource()).getText());
             }
         }
     }
@@ -566,11 +616,11 @@ public class MainWindow extends JFrame {
             JMenuItem clickedMenu = (JMenuItem) e.getSource();
 
             if (clickedMenu.getText().equals("Години")) {
-                labeTimeCount.setText("Години");
+                labelTimeCount.setText("Години");
             } else if (clickedMenu.getText().equals("Хвилини")) {
-                labeTimeCount.setText("Хвилини");
+                labelTimeCount.setText("Хвилини");
             } else if (clickedMenu.getText().equals("Секунди")) {
-                labeTimeCount.setText("Секунди");
+                labelTimeCount.setText("Секунди");
             }
         }
     }
@@ -589,33 +639,51 @@ public class MainWindow extends JFrame {
 
             JButton clickedButton = (JButton) e.getSource();
             textArea.setText("");
-            if (clickedButton.equals(parent.buttonCount)) {
+            if (clickedButton.equals(parent.textDown)) {
+                try {
+                    plainDocument3.insertString(9, labelEquals.getText(), null);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+            } else if (clickedButton.equals(parent.buttonReturnValue)) {
+                try {
+                    plainDocument1.insertString(9, labelEquals.getText(), null);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            } else if (clickedButton.equals(parent.buttonCount)) {
 
                 boolean error = false;
                 try {
-                    String s = "";
-                    s = textField1.getText();
-                    s = textField2.getText();
-                    s = textField1.getText().substring(8);
-                    s = textField2.getText().substring(8);
+
+                    textField1.getText();
+                    textField2.getText();
+                    textField1.getText().substring(8);
+                    textField2.getText().substring(8);
 
                     String test = testTime(textField1.getText());
 
                     if (!test.equals("")) {
                         textArea.setText(test);
                         textArea.setVisible(true);
+                        labelWarn.setVisible(true);
+
                         error = true;
                     }
                     test = testTime(textField2.getText());
                     if (!test.equals("")) {
                         textArea.setText(test);
                         textArea.setVisible(true);
+                        labelWarn.setVisible(true);
                         error = true;
                     }
 
                 } catch (NullPointerException ex) {
                     textArea.setText("Будьласка заповніть всі поля!");
                     textArea.setVisible(true);
+                    labelWarn.setVisible(true);
                     error = true;
 
 
@@ -623,7 +691,7 @@ public class MainWindow extends JFrame {
 
                     textArea.setText("Будьласка заповніть всі поля!");
                     textArea.setVisible(true);
-
+                    labelWarn.setVisible(true);
 
                     error = true;
                 }
@@ -632,7 +700,7 @@ public class MainWindow extends JFrame {
                 if (!error) {
 
 
-                    if (!lableMinus.getText().equals("")) {
+                    if (!labelMinus.getText().equals("")) {
                         labelEquals.setText(timeMinus(textField1.getText(), textField2.getText()));
 
                     } else {
@@ -658,27 +726,39 @@ public class MainWindow extends JFrame {
 
             JButton clickedButton = (JButton) e.getSource();
             textArea.setText("");
-            if (clickedButton.equals(parent.buttonCountF)) {
+            if (clickedButton.equals(parent.textUp)) {
+                try {
+                    plainDocument1.insertString(9, labelEqualsF.getText(), null);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+            } else if (clickedButton.equals(parent.buttonReturnValue2)) {
+                try {
+                    plainDocument3.insertString(9, labelEqualsF.getText(), null);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+            } else if (clickedButton.equals(parent.buttonCountF)) {
 
                 boolean error = false;
                 try {
-                    String s = "";
-                    s = textField1F.getText();
-                    s = textField2F.getText();
-                    s = textField1F.getText().substring(8);
-                    s = textField2F.getText().substring(1);
+                    textField1F.getText();
+                    textField2F.getText();
+                    textField1F.getText().substring(8);
+                    textField2F.getText().substring(1);
 
                     String test = testTime(textField1F.getText());
                     if (!test.equals("")) {
                         textArea.setText(test);
                         textArea.setVisible(true);
+                        labelWarn.setVisible(true);
                         error = true;
                     }
-
 
                 } catch (NullPointerException ex) {
                     textArea.setText("Будьласка заповніть всі поля!");
                     textArea.setVisible(true);
+                    labelWarn.setVisible(true);
                     error = true;
 
 
@@ -686,7 +766,7 @@ public class MainWindow extends JFrame {
 
                     textArea.setText("Будьласка заповніть всі поля!");
                     textArea.setVisible(true);
-
+                    labelWarn.setVisible(true);
 
                     error = true;
                 }
@@ -695,23 +775,23 @@ public class MainWindow extends JFrame {
                 if (!error) {
 
 
-                    if (!lableMinusF.getText().equals("")) {
+                    if (!labelMinusF.getText().equals("")) {
 
-                        if (labeTimeCount.getText().equals("Години")) {
+                        if (labelTimeCount.getText().equals("Години")) {
                             labelEqualsF.setText(timeMinusHours(textField1F.getText(), textField2F.getText()));
-                        } else if (labeTimeCount.getText().equals("Хвилини")) {
+                        } else if (labelTimeCount.getText().equals("Хвилини")) {
                             labelEqualsF.setText(timeMinusMinutes(textField1F.getText(), textField2F.getText()));
-                        } else if (labeTimeCount.getText().equals("Секунди")) {
+                        } else if (labelTimeCount.getText().equals("Секунди")) {
                             labelEqualsF.setText(timeMinusSeconds(textField1F.getText(), textField2F.getText()));
                         }
 
                     } else {
 
-                        if (labeTimeCount.getText().equals("Години")) {
+                        if (labelTimeCount.getText().equals("Години")) {
                             labelEqualsF.setText(timePlusHours(textField1F.getText(), textField2F.getText()));
-                        } else if (labeTimeCount.getText().equals("Хвилини")) {
+                        } else if (labelTimeCount.getText().equals("Хвилини")) {
                             labelEqualsF.setText(timePlusMinutes(textField1F.getText(), textField2F.getText()));
-                        } else if (labeTimeCount.getText().equals("Секунди")) {
+                        } else if (labelTimeCount.getText().equals("Секунди")) {
                             labelEqualsF.setText(timePlusSeconds(textField1F.getText(), textField2F.getText()));
                         }
 

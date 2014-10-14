@@ -73,7 +73,7 @@ public class ClientDaoImpl implements ClientDao {
         try {
             session.beginTransaction();
             session.update(client);
-            session.beginTransaction().commit();
+            session.getTransaction().commit();
         } catch (HandlerException e) {
             log.error("Update Method");
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class ClientDaoImpl implements ClientDao {
         try {
             session.beginTransaction();
             session.delete(client);
-            session.beginTransaction().commit();
+            session.getTransaction().commit();
         } catch (HandlerException e) {
             log.error("Delete method");
             e.printStackTrace();

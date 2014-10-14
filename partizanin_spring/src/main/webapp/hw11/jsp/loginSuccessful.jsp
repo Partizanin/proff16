@@ -11,7 +11,13 @@
 <form class="form-container" action="/Enter" method="post">
 
     <h2 class="form-title" style="font-size: 30px">Login Successful</h2>
+    <input type="submit" value="Ok">
+    <input type="text" name="MyValu">
 
+    <script>
+        var val = document.createElement("INPUT");
+        val.setAttribute("MyValue", "Partizanin Javascript")
+    </script>
 </form>
 </body>
 </html>

@@ -148,12 +148,12 @@ public class AdminTableServlet extends HttpServlet {
             return "Admin with this id don't exist!";
         }
 
-        for (int i = 0; i < adminList.size(); i++) {
+        for (Administrator anAdminList : adminList) {
 
-            if (adminList.get(i).getId().equals(admin.getId())) {
+            if (anAdminList.getId().equals(admin.getId())) {
 
                 /*adminList.remove(i);*/
-                adminService.delete(adminList.get(i));
+                adminService.delete(anAdminList);
                 break;
             }
         }
