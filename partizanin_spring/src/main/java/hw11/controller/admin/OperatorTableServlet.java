@@ -177,10 +177,24 @@ public class OperatorTableServlet extends HttpServlet {
     }
 
     private String editOperator(Operator operator) {
+
         Operator operator1 = searchOperator(operator);
 
         if (operator.getId() == null || operator.getId() == 0) {
             return "Pleas input id what you want delete!";
+        }
+
+        boolean idContain = false;
+        for (Operator operator3 : operators) {
+            if (operator.getId().equals(operator3.getId())) {
+
+                idContain = true;
+                break;
+            }
+        }
+
+        if (!idContain) {
+            return "Operator with this id don't exist!";
         }
 
         for (Operator operator2 : operators) {
