@@ -1,6 +1,5 @@
 package web.dao;
 
-import web.domain.Employee;
 import web.domain.User;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  * Date: 3/16/13
  */
 public interface EmployeeDao {
-    List<Employee> findAll();
+    List findAll();
 
     void save(User user);
 }

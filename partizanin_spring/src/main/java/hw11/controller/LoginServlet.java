@@ -115,7 +115,7 @@ public class LoginServlet extends HttpServlet {
                 for (Client aClientList : clientList) {
 
                     if (aClientList.getName().equals(name) && aClientList.getSurname().equals(surname)) {
-                        request.getRequestDispatcher("/hw11/jsp/loginSuccessful.jsp").forward(request, response);
+                        request.getRequestDispatcher("/hw11/jsp/clients/jsp/Yandexmap.html").forward(request, response);
                     } else if (aClientList.getName().equals(name) && !aClientList.getSurname().equals(surname)) {
                         request.setAttribute("message", "Please input correct surname!!");
                         request.getRequestDispatcher("/hw11/jsp/clients/LoginClient.jsp").forward(request, response);
@@ -125,7 +125,6 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         request.setAttribute("message", "Please input correct name and surname!!");
                         request.getRequestDispatcher("/hw11/jsp/clients/LoginClient.jsp").forward(request, response);
-
                     }
                 }
 

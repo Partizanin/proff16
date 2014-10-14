@@ -25,6 +25,7 @@
 %>
 <form class="form-container" action="/ClientTable" method="post">
     <table border="1" width="50%" class="rounded_edges" align="center">
+        <div class="form-title"><h2 style="font-size: 40px">Client list</h2></div>
         <div>
             <th style="color: #ffa600">client_id</th>
             <th style="color: #ffa600">client_name</th>

@@ -23,7 +23,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Employee> findAll() {
+    public List findAll() {
         Session session = factory.getCurrentSession();
         return session.createCriteria(Employee.class).list();
     }
