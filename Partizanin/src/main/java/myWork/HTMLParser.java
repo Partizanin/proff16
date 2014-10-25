@@ -10,5 +10,5 @@ package myWork;
  */
 public class HTMLParser {
 
-
+    int a;
 }
