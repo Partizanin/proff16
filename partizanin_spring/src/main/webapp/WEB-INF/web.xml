@@ -5,6 +5,18 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <welcome-file-list>
+        <welcome-file>calc.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <!--
+        <welcome-file>firs.jsp</welcome-file>
+        <welcome-file>ajaxTutorial.jsp</welcome-file>
+           <welcome-file>index.htm</welcome-file>
+        <welcome-file>map.jsp</welcome-file>
+        <welcome-file>main.jsp</welcome-file>
+        <welcome-file>index2.jsp</welcome-file>
+        <welcome-file>autorefreshpage.jsp</welcome-file>-->
+    </welcome-file-list>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

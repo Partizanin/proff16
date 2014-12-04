@@ -14,51 +14,45 @@
     <title>heavyTable.js : jQuery plugin</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <script src="//cdn.jsdelivr.net/jquery/2.1.1/jquery.min.js"></script>
+    <script src="<c:url value="//cdn.jsdelivr.net/jquery/2.1.1/jquery.min.js"/>"></script>
+    <script language="JavaScript" type="text/javascript" src="<c:url value="/js/jquery-1.2.6.min.js"/>"></script>
+    <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
 
-    <script src="JavaScripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 
 </head>
 <body>
 <h3>Please enter a number to Square : </h3>
-<input style="width: 33px; margin-left: 2px; " type="text" id="number1">
-<input style="width: 33px; margin-left: 2px; " type="text" id="number2">
-<input type="button" onclick="callServlet();" value="Click To Square">
+<input style="width: 33px; margin-left: 2px; " type="text" id="number1" name="number1">
+<input style="width: 33px; margin-left: 2px;" type="text" id="number2" name="number2">
+<input type="button" onclick="callServlet();" id="calcBtn" value="Calc">
 <input style="font-family: cursive; border:none" type="text" id="result"/>
+<input style="font-family: cursive; border:none; width: 100%" type="text" value="" id="resultText"/>
 
 </body>
 <script>
     function callServlet() {
-        var xmlhttp;
         var input1 = document.getElementById('number1').value;
         var input2 = document.getElementById('number2').value;
-        if (window.XMLHttpRequest) {
-            // This part is mainly for the latest browsers which have XMLHttpRequest object
-            // like Chrome,Firefox,Safari and IE7+
-            xmlhttp = new XMLHttpRequest();
-        }
-        else {
-            // This should take care of the older browsers
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            /*
-             readyState has four different states :
-             0: request not initialized
-             1: server connection established
-             2: request received
-             3: processing request
-             4: request finished and response is ready
-             status is ranging between 200 - Ok and 404 - Page Not Found
-             */
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("result").value = (xmlhttp.responseText);
-            }
-        };
-        xmlhttp.open("GET", "ServletTest?val1=" + input1
-                + "&val2=" + input2
+        var myData = {"mydata": {"number1": $("#number1").val(), "number2": $("#number2").val()}};
+        $.ajax({
+            type: "GET",
+            url: "/AjaxServletCalculator",
+            data: {jsonData: JSON.stringify(myData)},
+            dataType: "json",
 
-                , true);
-        xmlhttp.send();
+            //if received a response from the server
+            success: function (data) {
+                //our country code was correct so we have some information to display
+
+                //  var json = JSON.parse(data);
+
+                document.getElementById('result').value = data.results;
+                document.getElementById('resultText').value = data.resultText;
+
+
+            }
+        });
     }
 </script>
 </html>

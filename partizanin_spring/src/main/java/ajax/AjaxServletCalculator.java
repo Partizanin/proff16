@@ -1,5 +1,8 @@
 package ajax;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,18 +19,68 @@ import java.io.PrintWriter;
  * Time:  12:44
  * To change this template use File|Setting|File Templates.
  */
-@WebServlet("/ServletTest")
+@WebServlet(name = "AjaxServletCalculator", urlPatterns = "/AjaxServletCalculator")
 public class AjaxServletCalculator extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int val1 = Integer.parseInt(request.getParameter("val1"));
-        int val2 = Integer.parseInt(request.getParameter("val2"));
+ /*response.setContentType("application/json;charset=utf-8");
+
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        JSONObject member =  new JSONObject();
+
+        member.put("arrayData", sampleData);
+        array.add(member);
+
+        json.put("jsonArray", array);
+
+        PrintWriter pw = response.getWriter();
+        pw.print(json.toString());
+        pw.close();*/
+
+        /*
+        JSONObject jObj = new JSONObject(request.getParameter("mydata")); // this parses the json
+Iterator it = jObj.keys(); //gets all the keys
+
+while(it.hasNext())
+{
+    String key = it.next(); // get key
+    Object o = jObj.get(key); // get value
+    session.putValue(key, o); // store in session
+}*/
+
+        JSONObject newObj = new JSONObject();
+        try {
+            newObj = new JSONObject(request.getParameter("jsonData"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        int val2 = 0;
+        int val1 = 0;
+        try {
+            val2 = Integer.parseInt(newObj.getJSONObject("mydata").getString("number2"));
+            val1 = Integer.parseInt(newObj.getJSONObject("mydata").getString("number1"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         System.out.println(val2 + val1);
         Double d = Math.pow(val1, 2);
         PrintWriter writer = response.getWriter();
-        writer.println(d);
-        System.out.println(d);
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("results", d);
+            obj.put("resultText", "foo");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        writer.println(obj);
+        writer.flush();
+        System.out.println(obj);
 
     }
 }
