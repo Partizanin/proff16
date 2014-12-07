@@ -21,6 +21,10 @@ public class AjaxServletFirst extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String text = "some text";
+        System.out.println("here");
+        System.out.println("here");
+        System.out.println("here");
+        System.out.println("here");
 
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?

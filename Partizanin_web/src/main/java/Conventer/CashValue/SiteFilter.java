@@ -1,9 +1,7 @@
 package Conventer.CashValue;
 
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Scanner;
+import java.text.DecimalFormat;
 
 /**
  * Created with Intellij IDEA.
@@ -19,15 +17,16 @@ public class SiteFilter {
 
     private static String siteSource = sd.getSource();
 
+    private static DecimalFormat df = new DecimalFormat("#.###");
 
-    private String buyUSD = buyUSD();
-    private String sellUSD = sellUSD();
+    private String buyUSD = buyUSD();//покупка доллора относительно гривны
+    private String sellUSD = sellUSD();//продажа доллора относительно гривны
 
-    private String buyRUB = buyRUB();
-    private String sellRUB = sellRUB();
+    private String buyRUB = buyRUB();//покупка рубля относительно гривны
+    private String sellRUB = sellRUB();//продажа рубля относительно гривны
 
-    private String buyEUR = buyEUR();
-    private String sellEUR = sellEUR();
+    private String buyEUR = buyEUR();//покупка евро относительно гривны
+    private String sellEUR = sellEUR();//продажа евроотносительно гривны
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -61,298 +60,116 @@ public class SiteFilter {
         System.out.println("Buy RUB = " + buyRUB);
         System.out.println("-------------------------------------------\n");
 
-
     }
 
     private static String sellRUB() {
 
+        String line = getRUB();
 
-        String line1 = "";
-        String line2 = "";
-        String line3 = "";
-
-
-        double value1 = 0.0;
-        double value2 = 0.0;
-        double value3 = 0.0;
-
-        Scanner sc = new Scanner(getRUB());
-
-        if (sc.hasNext()) {
-            sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-        if (sc.hasNext()) {
-            line2 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line3 = sc.nextLine();
-        }
-
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = line.indexOf("<Rate>") + 5;
+        int finish = line.indexOf("</Rate>");
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = start; i < line.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += line.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
-
-        temp = "";
-        for (int i = 0; i < line2.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line2.charAt(i);
-            }
-        }
-        value2 = Double.valueOf(temp);
-
-        temp = "";
-        for (int i = 0; i < line3.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line3.charAt(i);
-            }
-        }
-        value3 = Double.valueOf(temp);
-
-
-        BigDecimal res = ((BigDecimal.valueOf(value2))
-                .add(BigDecimal.valueOf(value3))).divide(BigDecimal.valueOf(2.0), 4, RoundingMode.HALF_DOWN);
-
-        return String.valueOf(res);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
     }
 
     private static String buyRUB() {
-        String line1 = "";
+        String source = getRUB();
 
-        double value1 = 0.0;
-
-        Scanner sc = new Scanner(getRUB());
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = source.indexOf("<Ask>") + 4;
+        int finish = source.indexOf("</Ask>");
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = start; i < source.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += source.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
-
-        return String.valueOf(value1);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
     }
 
     private static String sellUSD() {
+        String source = getUSD();
 
 
-        String line1 = "";
-        String line2 = "";
-        String line3 = "";
-
-
-        double value1 = 0.0;
-        double value2 = 0.0;
-        double value3 = 0.0;
-
-        Scanner sc = new Scanner(getUSD());
-
-        if (sc.hasNext()) {
-            sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-        if (sc.hasNext()) {
-            line2 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line3 = sc.nextLine();
-        }
-
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = source.indexOf("<Rate>") + 5;
+        int finish = source.indexOf("</Rate>");
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = start; i < source.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += source.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
 
-        temp = "";
-        for (int i = 0; i < line2.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line2.charAt(i);
-            }
-        }
-        value2 = Double.valueOf(temp);
-
-        temp = "";
-        for (int i = 0; i < line3.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line3.charAt(i);
-            }
-        }
-        value3 = Double.valueOf(temp);
-
-
-        BigDecimal res = ((BigDecimal.valueOf(value2))
-                .add(BigDecimal.valueOf(value3))).divide(BigDecimal.valueOf(2.0), 4, RoundingMode.HALF_DOWN);
-
-        return String.valueOf(res);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
     }
 
     private static String buyUSD() {
-        String line1 = "";
+        String source = getUSD();
 
-        double value1 = 0.0;
-
-        Scanner sc = new Scanner(getUSD());
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = source.indexOf("<Ask>") + 4;
+        int finish = source.indexOf("</Ask>");
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = 0; i < source.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += source.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
 
-        return String.valueOf(value1);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
     }
 
     private static String sellEUR() {
-        String line1 = "";
-        String line2 = "";
-        String line3 = "";
+        String source = getEUR();
 
 
-        double value1 = 0.0;
-        double value2 = 0.0;
-        double value3 = 0.0;
-
-        Scanner sc = new Scanner(getEUR());
-
-        if (sc.hasNext()) {
-            sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-        if (sc.hasNext()) {
-            line2 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line3 = sc.nextLine();
-        }
-
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = source.indexOf("<Rate>") + 5;
+        int finish = source.indexOf("</Rate>");
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = start; i < source.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += source.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
 
-        temp = "";
-        for (int i = 0; i < line2.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line2.charAt(i);
-            }
-        }
-        value2 = Double.valueOf(temp);
-
-        temp = "";
-        for (int i = 0; i < line3.length(); i++) {
-            if (i > start && i < finish) {
-                temp += line3.charAt(i);
-            }
-        }
-        value3 = Double.valueOf(temp);
-
-
-        BigDecimal res = ((BigDecimal.valueOf(value2))
-                .add(BigDecimal.valueOf(value3))).divide(BigDecimal.valueOf(2.0), 4, RoundingMode.HALF_DOWN);
-
-        return String.valueOf(res);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
 
     }
 
     private static String buyEUR() {
-        String line1 = "";
+        String source = getEUR();
 
-        double value1 = 0.0;
-
-        Scanner sc = new Scanner(getEUR());
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        if (sc.hasNext()) {
-            line1 = sc.nextLine();
-        }
-
-        int start = line1.indexOf("<big>") + 4;
-        int finish = line1.indexOf("</big>");
+        int start = source.indexOf("<Ask>") + 4;
+        int finish = source.indexOf("</Ask>");
 
 
         String temp = "";
 
-        for (int i = 0; i < line1.length(); i++) {
+        for (int i = start; i < source.length(); i++) {
             if (i > start && i < finish) {
-                temp += line1.charAt(i);
+                temp += source.charAt(i);
             }
         }
 
-        value1 = Double.valueOf(temp);
-
-        return String.valueOf(value1);
+        return String.valueOf(df.format(1 / Double.parseDouble(temp)));
 
     }
 
@@ -360,10 +177,8 @@ public class SiteFilter {
         String result = getValues();
         String USD = "";
 
-        int start = result.indexOf("<td class=\"align_left\"><b>USD</b></td>") + 37;
-        int end = result.indexOf("</tr>\n" +
-                "\t\t\t<tr>\n" +
-                "\t\t\t\t<td class=\"align_left\"><b>EUR</b></td>");
+        int start = result.indexOf("<rate id=\"UAHUSD\">");
+        int end = result.indexOf("</rate>", start);
 
         for (int i = 0; i < result.length(); i++) {
 
@@ -380,10 +195,8 @@ public class SiteFilter {
         String result = getValues();
         String EUR = "";
 
-        int start = result.indexOf("<td class=\"align_left\"><b>EUR</b></td>") + 37;
-        int end = result.indexOf("</tr>\n" +
-                "\t\t\t<tr>\n" +
-                "\t\t\t\t<td class=\"align_left\"><b>RUB</b></td>");
+        int start = result.indexOf("<rate id=\"UAHEUR\">");
+        int end = result.indexOf("</rate>", start);
 
         for (int i = 0; i < result.length(); i++) {
 
@@ -400,11 +213,11 @@ public class SiteFilter {
         String result = getValues();
         String RUB = "";
 
-        int start = result.indexOf("<td class=\"align_left\"><b>RUB</b></td>") + 37;
-        int end = result.indexOf("</tr>\n" +
-                "\t\t</table>");
+        int start = result.indexOf("<rate id=\"UAHRUB\">");
+        int end = result.indexOf("</rate>", start);
 
-        for (int i = 0; i < result.length(); i++) {
+
+        for (int i = start; i < result.length(); i++) {
 
             if (i > start && i < end) {
 
@@ -412,6 +225,8 @@ public class SiteFilter {
                 RUB += result.charAt(i);
             }
         }
+
+
         return RUB;
     }
 
@@ -420,13 +235,13 @@ public class SiteFilter {
 
         String result = " ";
 
-        int start = siteSourceCode.indexOf("Средний курс валют");
+        int start = siteSourceCode.indexOf("<results>");
 
-        int end = siteSourceCode.indexOf("<td class=\"align_left\"><b>RUB</b></td>") + 450;
+        int end = siteSourceCode.indexOf("</results>");
 
-        for (int i = 0; i < siteSourceCode.length(); i++) {
+        for (int i = start; i < siteSourceCode.length(); i++) {
 
-            if (i > start && i < end) {
+            if (i > start && i <= end) {
 
                 result += siteSourceCode.charAt(i);
             }

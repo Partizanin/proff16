@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form action="/Cash" method="post">
+<form action="Cash" method="post">
 
     <% if (request.getAttribute("UAHResult") != null) {
 

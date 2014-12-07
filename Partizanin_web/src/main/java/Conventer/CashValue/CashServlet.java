@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/Cash")
+@WebServlet(name = "Cash", urlPatterns = "/Cash")
 public class CashServlet extends HttpServlet {
 
     public static void UAH(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,7 +74,7 @@ public class CashServlet extends HttpServlet {
 
         }
 
-        request.getRequestDispatcher("firs.jsp").forward(request, response);
+        request.getRequestDispatcher("index.html").forward(request, response);
 
 
     }
