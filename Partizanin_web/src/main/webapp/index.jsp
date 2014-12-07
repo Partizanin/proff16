@@ -47,12 +47,13 @@
 
             //if received a response from the server
             success: function (data) {
-                document.getElementById('exchangeUSD').value = data.exchangeUSD;
-                document.getElementById('exchangeRUB').value = data.exchangeRUB;
-                document.getElementById('exchangeEUR').value = data.exchangeEUR;
+                document.getElementById('exchange1').value = data.exchangeUSD;
+                document.getElementById('exchange2').value = data.exchangeRUB;
+                document.getElementById('exchange3').value = data.exchangeEUR;
+                count($("#inputValue").val());
             }
         });
-        count($("#inputValue").val())
+
     }
 
     function sellCours() {
@@ -66,12 +67,13 @@
             //if received a response from the server
             success: function (data) {
 
-                document.getElementById('exchangeUSD').value = data.exchangeUSD;
-                document.getElementById('exchangeRUB').value = data.exchangeRUB;
-                document.getElementById('exchangeEUR').value = data.exchangeEUR
+                document.getElementById('exchange1').value = data.exchangeUSD;
+                document.getElementById('exchange2').value = data.exchangeRUB;
+                document.getElementById('exchange3').value = data.exchangeEUR;
+                count($("#inputValue").val());
             }
         });
-        count($("#inputValue").val())
+
     }
 
     function isNumberKey(evt) {
@@ -83,12 +85,11 @@
 
     function count(inputValue) {
 
-        console.log(inputValue);
         if (inputValue != "") {
 
-            document.getElementById("conventUSD").value = ($("#exchangeUSD").val() * inputValue);
-            document.getElementById("conventEUR").value = ($("#exchangeEUR").val() * inputValue);
-            document.getElementById("conventRUB").value = ($("#exchangeRUB").val() * inputValue);
+            document.getElementById("conventUSD").value = ($("#exchange1").val() * inputValue);
+            document.getElementById("conventEUR").value = ($("#exchange3").val() * inputValue);
+            document.getElementById("conventRUB").value = ($("#exchange2").val() * inputValue);
 
         } else {
             var defaultValue = "0.00";
@@ -114,20 +115,27 @@
                                            onblur="if (this.value == '') {this.value = '0.00'; }" id="inputValue"
                                            style="width: 100px;margin-bottom: 30px">
     <select id="fn_c1" onchange="fn_cross(this.value)">
-        <option selected="" value="840">USD</option>
+        <option value="840">USD</option>
         <option value="978">EUR</option>
         <option value="643">RUB</option>
-        <option value="1">UAH</option>
+        <option selected="" value="1">UAH</option>
     </select>
-    <br/>Результат
     <br/>
-    <li><input type="text" readonly value="0.00" onblur="if (this.value == '') {this.value = '0.00'; }" id="conventUSD">
-        USD <input style="width: 50px" readonly id="exchangeUSD"></li>
-    <li><input type="text" readonly value="0.00" onblur="if (this.value == '') {this.value = '0.00'; }" id="conventRUB">
-        RUB <input style="width: 50px" readonly id="exchangeRUB"></li>
-    <li><input type="text" readonly value="0.00" onblur="if (this.value == '') {this.value = '0.00'; }" id="conventEUR">
-        EUR <input style="width: 50px" readonly id="exchangeEUR"></li>
-
+    Результат
+    <ul style="margin-left: 35px;margin-top: -15px;list-style-type: none">
+        <li><input type="text" readonly value="0.00" style="width:175px;height:25px;font-size:20px;margin-top: 5px;"
+                   onblur="if (this.value == '') {this.value = '0.00'; }" id="conventUSD">
+            <input type="text" id="value1" size="1" value="USD" style="color: #9c9c9c;border:none;font-family:Arial; ">
+            <input style="width: 50px" readonly id="exchange1"></li>
+        <li><input type="text" readonly value="0.00" style="width:175px;height:25px;font-size:20px;margin-top: 5px;"
+                   onblur="if (this.value == '') {this.value = '0.00'; }" id="conventRUB">
+            <input type="text" id="value2" size="1" value="RUB" style="color: #9c9c9c;border:none;font-family:Arial; ">
+            <input style="width: 50px" readonly id="exchange2"></li>
+        <li><input type="text" readonly value="0.00" style="width:175px;height:25px;font-size:20px;margin-top: 5px;"
+                   onblur="if (this.value == '') {this.value = '0.00'; }" id="conventEUR">
+            <input type="text" id="value3" size="1" value="EUR" style="color: #9c9c9c;border:none;font-family:Arial; ">
+            <input style="width: 50px" readonly id="exchange3"></li>
+    </ul>
 </div>
 </body>
 </html>
