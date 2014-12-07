@@ -124,7 +124,7 @@ public class SiteFilter {
 
         String temp = "";
 
-        for (int i = 0; i < source.length(); i++) {
+        for (int i = start; i < source.length(); i++) {
             if (i > start && i < finish) {
                 temp += source.charAt(i);
             }
@@ -180,7 +180,7 @@ public class SiteFilter {
         int start = result.indexOf("<rate id=\"UAHUSD\">");
         int end = result.indexOf("</rate>", start);
 
-        for (int i = 0; i < result.length(); i++) {
+        for (int i = start; i < result.length(); i++) {
 
             if (i > start && i < end) {
 
@@ -198,7 +198,7 @@ public class SiteFilter {
         int start = result.indexOf("<rate id=\"UAHEUR\">");
         int end = result.indexOf("</rate>", start);
 
-        for (int i = 0; i < result.length(); i++) {
+        for (int i = start; i < result.length(); i++) {
 
             if (i > start && i < end) {
 
