@@ -19,9 +19,9 @@ public class CashServlet extends HttpServlet {
 
             value = value.replaceAll(",", ".");
 
-            String buyUSD = CashConventer.UAH.buyUSD(value);
-            String buyEUR = CashConventer.UAH.buyEUR(value);
-            String buyRUB = CashConventer.UAH.buyRUB(value);
+            String buyUSD = "";
+            String buyEUR = "";
+            String buyRUB = "";
             request.setAttribute("UAHResult", value);
             request.setAttribute("USDResult", buyUSD);
             request.setAttribute("EURResult", buyEUR);
@@ -46,9 +46,9 @@ public class CashServlet extends HttpServlet {
 
         } else {
 
-            String buyUSD = CashConventer.UAH.buyUSD(value);
-            String buyEUR = CashConventer.UAH.buyEUR(value);
-            String buyRUB = CashConventer.UAH.buyRUB(value);
+            String buyUSD = "";
+            String buyEUR = "";
+            String buyRUB = "";
 
             request.setAttribute("UAHResult", value);
             request.setAttribute("USDResult", buyUSD);
