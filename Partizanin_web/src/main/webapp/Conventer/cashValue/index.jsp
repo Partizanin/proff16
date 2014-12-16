@@ -15,30 +15,55 @@
 
 <script>
 
-    function fn_cross(c) {
-
-        switch (c) {
-
-
-        }
-    }
-
     $(document).ready(function () {
-        buyCours();
+        callServeToChangeExchange("uah", "sell");
     });
 
-    function changeCourse(buttonValue) {
+    function changeExchange(exchange) {
 
-        if (buttonValue == ("buyUAH")) {
-            buyCours();
+        changeShowLable(exchange);
+        callServeToChangeExchange(exchange, $('#operation').val());
+
+    }
+
+    function changeShowLable(exchange) {
+
+        if (exchange == "usd") {
+
+            document.getElementById("value1").value = "UAH";
+            document.getElementById("value2").value = "RUB";
+            document.getElementById("value3").value = "EUR";
+
+        } else if (exchange == "eur") {
+
+            document.getElementById("value1").value = "UAH";
+            document.getElementById("value2").value = "RUB";
+            document.getElementById("value3").value = "USD";
+
+        } else if (exchange == "rub") {
+
+            document.getElementById("value1").value = "UAH";
+            document.getElementById("value2").value = "USD";
+            document.getElementById("value3").value = "EUR";
+
         } else {
-            sellCours();
+            /*uah*/
+            document.getElementById("value1").value = "USD";
+            document.getElementById("value2").value = "RUB";
+            document.getElementById("value3").value = "EUR";
         }
+    }
+
+    function changeOperation(changeValue) {
+
+        changeExchange($('#selectUnit').val(), changeValue);
 
     }
 
-    function buyCours() {
-        var myData = {"operation": "changeCourse", "exchangeCall": "buy"};
+    function callServeToChangeExchange(exchange, operation) {
+
+        var myData = {"operationCall": operation, "exchange": exchange};
+
         $.ajax({
             type: "GET",
             url: "/ConventerServlet",
@@ -47,29 +72,9 @@
 
             //if received a response from the server
             success: function (data) {
-                document.getElementById('exchange1').value = data.exchangeUSD;
-                document.getElementById('exchange2').value = data.exchangeRUB;
-                document.getElementById('exchange3').value = data.exchangeEUR;
-                count($("#inputValue").val());
-            }
-        });
-
-    }
-
-    function sellCours() {
-        var myData = {"operation": "changeCourse", "exchangeCall": "sell"};
-        $.ajax({
-            type: "GET",
-            url: "/ConventerServlet",
-            data: {jsonData: JSON.stringify(myData)},
-            dataType: "json",
-
-            //if received a response from the server
-            success: function (data) {
-
-                document.getElementById('exchange1').value = data.exchangeUSD;
-                document.getElementById('exchange2').value = data.exchangeRUB;
-                document.getElementById('exchange3').value = data.exchangeEUR;
+                document.getElementById('exchange1').value = data.exchange1;
+                document.getElementById('exchange2').value = data.exchange2;
+                document.getElementById('exchange3').value = data.exchange3;
                 count($("#inputValue").val());
             }
         });
@@ -104,9 +109,10 @@
 </script>
 <div class="USD">
     <h2 style="text-align: center">UAH</h2>
-    Я хочу <input type="button" id="buyUAH" onclick="changeCourse(this.id)" value="Купить">
-
-    <input type="button" id="sellUAH" onclick="changeCourse(this.id)" value="Подать">
+    Я хочу <select id="operation" onchange="changeOperation(this.value)">
+    <option value="buy">Купить</option>
+    <option selected="" value="sell">Продать</option>
+</select>
 
 
     <label for="inputValue"></label><input type="text" value="0.00" onkeypress="return isNumberKey(event)"
@@ -114,11 +120,11 @@
                                            onfocus="if (this.value == '0.00') this.value='';"
                                            onblur="if (this.value == '') {this.value = '0.00'; }" id="inputValue"
                                            style="width: 100px;margin-bottom: 30px">
-    <select id="fn_c1" onchange="fn_cross(this.value)">
-        <option value="840">USD</option>
-        <option value="978">EUR</option>
-        <option value="643">RUB</option>
-        <option selected="" value="1">UAH</option>
+    <select id="selectExchange" onchange="changeExchange(this.value)">
+        <option value="usd">USD</option>
+        <option value="eur">EUR</option>
+        <option value="rub">RUB</option>
+        <option selected="" value="uah">UAH</option>
     </select>
     <br/>
     Результат

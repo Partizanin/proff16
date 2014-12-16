@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode != 46 && charCode != 44 && (charCode < 48 || charCode > 57)))
+            return false;
+        return true;
+    }
+
+    function changeValue(changedValue) {
+
+        if (changedValue == "eks") {
+
+            $('#1unit').val("Пентабайт");
+            $('#2unit').val("Терабайт");
+            $('#3unit').val("Гигабайт");
+            $('#4unit').val("Мегабайт");
+            $('#5unit').val("Килобайт");
+            $('#6unit').val("Байт");
+
+        } else if (changedValue == "pen") {
+
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Терабайт");
+            $('#3unit').val("Гигабайт");
+            $('#4unit').val("Мегабайт");
+            $('#5unit ').val("Килобайт");
+            $('#6unit ').val("Байт");
+
+
+        } else if (changedValue == "ter") {
+
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Пентабайт");
+            $('#3unit').val("Гигабайт");
+            $('#4unit ').val("Мегабайт");
+            $('#5unit ').val("Килобайт");
+            $('#6unit ').val("Байт");
+
+        } else if (changedValue == "meg") {
+
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Пентабайт");
+            $('#3unit').val("Терабайт");
+            $('#4unit ').val("Гигабайт");
+            $('#5unit ').val("Килобайт");
+            $('#6unit ').val("Байт");
+
+        } else if (changedValue == "gig") {
+
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Пентабайт");
+            $('#3unit').val("Терабайт");
+            $('#4unit ').val("Мегабайт");
+            $('#5unit ').val("Килобайт");
+            $('#6unit ').val("Байт");
+
+        } else if (changedValue == "kil") {
+
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Пентабайт");
+            $('#3unit').val("Терабайт");
+            $('#4unit ').val("Гигабайт");
+            $('#5unit ').val("Мегабайт");
+            $('#6unit ').val("Байт");
+
+        } else {
+            /*byte*/
+            $('#1unit').val("Ексабайт");
+            $('#2unit').val("Пентабайт");
+            $('#3unit').val("Терабайт");
+            $('#4unit ').val("Гигабайт");
+            $('#5unit ').val("Мегабайт");
+            $('#6unit ').val("Килобайт");
+        }
+
+        count($('#inputValue').val());
+    }
+
+    function count(inputValue) {
+
+        var unit = $('#selectUnit').val();
+
+        var eksa = "";
+        var penta = "";
+        var tera = "";
+        var giga = "";
+        var mega = "";
+        var kilo = "";
+        var byte = "";
+
+        if (unit == "eks") {
+
+
+            eksa = inputValue;
+            penta = eksa * 1024;
+            tera = penta * 1024;
+            giga = tera * 1024;
+            mega = giga * 1024;
+            kilo = giga * 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(penta);
+            $('#2unitValue').val(tera);
+            $('#3unitValue').val(giga);
+            $('#4unitValue').val(mega);
+            $('#5unitValue').val(kilo);
+            $('#6unitValue').val(byte);
+
+        } else if (unit == "pen") {
+
+            eksa = inputValue / 1024;
+            penta = inputValue;
+            tera = penta * 1024;
+            giga = tera * 1024;
+            mega = giga * 1024;
+            kilo = mega * 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(tera);
+            $('#3unitValue').val(giga);
+            $('#4unitValue').val(mega);
+            $('#5unitValue').val(kilo);
+            $('#6unitValue').val(byte);
+
+        } else if (unit == "ter") {
+
+            tera = inputValue;
+            penta = tera / 1024;
+            eksa = penta / 1024;
+            giga = tera * 1024;
+            mega = giga * 1024;
+            kilo = mega * 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(penta);
+            $('#3unitValue').val(giga);
+            $('#4unitValue').val(mega);
+            $('#5unitValue').val(kilo);
+            $('#6unitValue').val(byte);
+
+        } else if (unit == "gig") {
+
+            giga = inputValue;
+            tera = giga / 1024;
+            penta = tera / 1024;
+            eksa = penta / 1024;
+            mega = giga * 1024;
+            kilo = mega * 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(penta);
+            $('#3unitValue').val(tera);
+            $('#4unitValue').val(mega);
+            $('#5unitValue').val(kilo);
+            $('#6unitValue').val(byte);
+
+        } else if (unit == "meg") {
+
+            mega = inputValue;
+            giga = mega / 1024;
+            tera = giga / 1024;
+            penta = tera / 1024;
+            eksa = penta / 1024;
+            kilo = mega * 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(penta);
+            $('#3unitValue').val(tera);
+            $('#4unitValue').val(giga);
+            $('#5unitValue').val(kilo);
+            $('#6unitValue').val(byte);
+
+
+        } else if (unit == "kil") {
+
+            kilo = inputValue;
+            mega = kilo / 1024;
+            giga = mega / 1024;
+            tera = giga / 1024;
+            penta = tera / 1024;
+            eksa = penta / 1024;
+            byte = kilo * 1024;
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(penta);
+            $('#3unitValue').val(tera);
+            $('#4unitValue').val(giga);
+            $('#5unitValue').val(mega);
+            $('#6unitValue').val(byte);
+
+
+        } else {
+            /*byte*/
+            byte = inputValue;
+            kilo = byte / 1024;
+            mega = kilo / 1024;
+            giga = mega / 1024;
+            tera = giga / 1024;
+            penta = tera / 1024;
+            eksa = penta / 1024;
+
+
+            $('#1unitValue').val(eksa);
+            $('#2unitValue').val(penta);
+            $('#3unitValue').val(tera);
+            $('#4unitValue').val(giga);
+            $('#5unitValue').val(mega);
+            $('#6unitValue').val(kilo);
+
+
+        }
+
+
+    }
+
+
+</script>
+<body>
+<div style=" margin:200px  1px 1px 400px; width:50%;">
+    Я хочу конвертировать
+    <input style="width: 100px" type="text" id="inputValue" value="0" onkeypress="return isNumberKey(event)"
+           onfocus="if (this.value == '0') this.value='';"
+           onblur="if (this.value == '') {this.value = '0'; }" onkeyup="count(this.value)"/>
+    <select id="selectUnit" onchange="changeValue(this.value)">
+        <hr>
+        <option selected="" value="eks">Ексабайт</option>
+        <option value="pen">Пентабайт</option>
+        <option value="ter">Терабайт</option>
+        <option value="gig">Гига</option>
+        <option value="meg">Мегабайт</option>
+        <option value="kil">Килобайт</option>
+        <option value="byt">Байт</option>
+    </select>
+
+    <div style="margin-left: 90px;margin-top: 20px">
+
+        <input style="border: none; width: 70px" readonly type="text" id="1unit" value="Пентабайт"><input
+            id="1unitValue" type="text" readonly onblur="if (this.value == '') {this.value = '0'; }" value="0"
+            name="Petabyte"/><br/>
+
+        <input style="border: none; width: 70px" readonly type="text" id="2unit" value="Терабайт"><input id="2unitValue"
+                                                                                                         type="text"
+                                                                                                         readonly
+                                                                                                         onblur="if (this.value == '') {this.value = '0'; }"
+                                                                                                         value="0"
+                                                                                                         name="Terabyte"/><br/>
+
+        <input style="border: none; width: 70px" readonly type="text" id="3unit" value="Гигабайт"><input id="3unitValue"
+                                                                                                         type="text"
+                                                                                                         readonly
+                                                                                                         onblur="if (this.value == '') {this.value = '0'; }"
+                                                                                                         value="0"
+                                                                                                         name="Gigabyte"/><br/>
+
+        <input style="border: none; width: 70px" readonly type="text" id="4unit" value="Мегабайт"><input id="4unitValue"
+                                                                                                         type="text"
+                                                                                                         readonly
+                                                                                                         onblur="if (this.value == '') {this.value = '0'; }"
+                                                                                                         value="0"
+                                                                                                         name="Megabyte"/><br/>
+
+        <input style="border: none; width: 70px" readonly type="text" id="5unit" value="Килобайт"><input id="5unitValue"
+                                                                                                         type="text"
+                                                                                                         readonly
+                                                                                                         onblur="if (this.value == '') {this.value = '0'; }"
+                                                                                                         value="0"
+                                                                                                         name="Kilobyte"/><br/>
+
+        <input style="border: none; width: 70px" readonly type="text" id="6unit" value="Байт"><input id="6unitValue"
+                                                                                                     type="text"
+                                                                                                     readonly
+                                                                                                     onblur="if (this.value == '') {this.value = '0'; }"
+                                                                                                     value="0"
+                                                                                                     name="Byte"/><br/>
+
+    </div>
+</div>
+
+</body>
+</html>
